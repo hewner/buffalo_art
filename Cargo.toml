@@ -8,3 +8,11 @@ edition = "2021"
 [dependencies]
 console = "0.15.*"
 rand = "*"
+
+[lib]
+name = "buffalo_art"
+path = "src/lib.rs"
+
+[[bin]]
+name = "dissolve"
+path = "src/bin/dissolve.rs"
