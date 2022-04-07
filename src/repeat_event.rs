@@ -1,5 +1,5 @@
 
-use crate::event_queue::*;
+use super::event_queue::*;
 
 pub enum RepeatResult {
     Done,
