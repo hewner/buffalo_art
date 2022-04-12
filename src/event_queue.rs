@@ -1,4 +1,3 @@
-
 use std::cmp::Ordering;
 use std::collections::BinaryHeap;
 
@@ -46,6 +45,10 @@ impl<T> EventQueue<T> {
                                , T) {
         let result = self.queue.pop().unwrap();
         (result.event_time, result.event)
+    }
+
+    pub fn new() -> EventQueue<T> {
+        EventQueue { queue : BinaryHeap::new() }
     }
 }
 
