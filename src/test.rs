@@ -24,7 +24,7 @@ mod tests {
             RepeatResult::Done
         };
         
-        let mut add_event = ClosureRepeatEvent::new( closure );
+        let add_event = ClosureRepeatEvent::new( closure );
                 
         events.register_event(add_event, 10.);
         do_next_and_repeat(&mut change_me, &mut events, 11.);
@@ -38,7 +38,7 @@ mod tests {
         let mut change_me : u32 = 0;
         let closure = |state : &mut u32, _, _| {             
             *state = *state + 1;
-            if(*state == 2) {
+            if *state == 2 {
                 RepeatResult::Done
             } else {
                 RepeatResult::RescheduleFor(100.)
@@ -54,6 +54,23 @@ mod tests {
         assert_eq!(change_me, 2);
         assert_eq!(events.is_empty(), true);
         
+    }
+
+    #[test]
+    fn test_time_values() {
+
+        let mut events = EventQueue::new();
+        let mut change_me : EventTime = 0.;
+        let closure = |state : &mut EventTime, scheduled : EventTime, actual : EventTime | {             
+            *state = actual - scheduled;
+            RepeatResult::Done
+        };
+        
+        let mut add_event = ClosureRepeatEvent::new( closure );
+                
+        events.register_event(add_event, 10.);
+        do_next_and_repeat(&mut change_me, &mut events, 11.);
+        assert_eq!(change_me, 1.);        
     }
 
 
