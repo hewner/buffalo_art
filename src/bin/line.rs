@@ -1,20 +1,16 @@
 extern crate rand;
 
-use rand::thread_rng;
-use rand::Rng;
 use std::error::Error;
 use std::io::Write;
 use console::Term;
 
+use buffalo_art::EventTime;
 use buffalo_art::repeat_event::*;
 use buffalo_art::event_queue::*;
 
 use std::{thread, time};
 
 fn main() -> Result<(), Box<dyn Error>>{
-
-    let mut rng = thread_rng();
-
 
     let mut events = EventQueue::new();
 
@@ -30,14 +26,14 @@ fn main() -> Result<(), Box<dyn Error>>{
             return RepeatResult::Done;
         }
 
-        term.move_cursor_to(new_pos.into(), 0);
+        term.move_cursor_to(new_pos.into(), 0).unwrap();
         term.write(b"?").unwrap();
         RepeatResult::RescheduleFor(scheduled + 0.1)
 
     };
 
 
-    let mut line = ClosureRepeatEvent::new( closure );
+    let line = ClosureRepeatEvent::new( closure );
     
     events.register_event(line, 0.);
 

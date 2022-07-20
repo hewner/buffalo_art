@@ -17,14 +17,17 @@ fn main() -> Result<(), Box<dyn Error>>{
     let (rows, cols) = term.size();
     println!("{} {}", rows, cols);
 
+    let mut times = 100;
+    
     loop {
         let r: u16 = rng.gen_range(0..rows);
         let c: u16 = rng.gen_range(0..cols);
 
         term.move_cursor_to(c.into(),r.into())?;
         term.write(b"?")?;
-        
-        // println!("{} {}", r, c);
+
+        times = times - 1;
+        if times == 0 { break } ;
     }
     
     Ok(())

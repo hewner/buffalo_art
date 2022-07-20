@@ -1,7 +1,7 @@
 use std::cmp::Ordering;
 use std::collections::BinaryHeap;
 
-pub type EventTime = f32;
+use super::EventTime;
 
 struct EventEntry<T> {
     event_time : EventTime,
