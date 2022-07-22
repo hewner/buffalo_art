@@ -10,7 +10,7 @@ struct EventEntry<T> {
 
 impl<T> Ord for EventEntry<T> {
     fn cmp(&self, other: &Self) -> Ordering {
-        self.event_time.partial_cmp(&other.event_time).unwrap()
+        other.event_time.partial_cmp(&self.event_time).unwrap()
     }
 }
 
@@ -39,6 +39,11 @@ impl<T> EventQueue<T> {
 
     pub fn is_empty(&self) -> bool {
         self.queue.is_empty()
+    }
+
+    // "waiting" i.e. has no happened events
+    pub fn is_waiting(&self, now : EventTime) -> bool {
+        self.queue.peek().unwrap().event_time >= now
     }
 
     pub fn next(&mut self) -> (EventTime

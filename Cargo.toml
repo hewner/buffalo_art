@@ -20,3 +20,7 @@ path = "src/bin/dissolve.rs"
 [[bin]]
 name = "line"
 path = "src/bin/line.rs"
+
+[[bin]]
+name = "screen"
+path = "src/bin/screen.rs"

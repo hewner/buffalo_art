@@ -2,6 +2,19 @@
 mod tests {
     use crate::repeat_event::*;
     use crate::event_queue::*;
+    use crate::EventTime;
+
+    #[test]
+    fn test_queue_basics() {
+        let mut events = EventQueue::new();
+        events.register_event('A', 1.);
+        events.register_event('C', 2.);
+        events.register_event('B', 0.);
+        assert_eq!(events.next(),  (0., 'B'));
+        assert_eq!(events.next(),  (1., 'A'));
+        assert_eq!(events.next(),  (2., 'C'));
+        
+    }    
     
     #[test]
     fn test_invoke_once() {
